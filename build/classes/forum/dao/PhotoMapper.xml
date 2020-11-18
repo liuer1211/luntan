@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forum.dao.PhotoMapper">
+	<resultMap type="com.forum.pojo.Photo" id="main">
+	 	<id column="id" property="id"/>
+	 	<result column="id" property="id"/>
+	 	<result column="picture" property="picture"/>
+	 	<result column="createDate" property="createDate"/>
+	 	<result column="albumId" property="albumId"/>
+	 	<result column="title" property="title"/>
+	 </resultMap>
+	 <!-- //查询
+		public List<Photo> getPhotos(Photo model);-->
+	<select id="getPhotos" parameterType="com.forum.pojo.Photo" resultMap="main">
+		select p.*,a.* from tb_photo p 
+		left join tb_album a 
+		on p.albumId=a.id
+		where 1=1
+		<if test="id != null">
+			AND p.id=#{id}
+		</if>
+		<if test="picture != null and picture != ''">
+			AND p.picture = #{picture}
+		</if>
+		<!-- <if test="createDate != null and createDate != ''">
+			AND p.createDate = #{createDate}
+		</if> -->
+		<if test="startdate != null and startdate != ''">
+			AND p.createDate &gt;= #{startdate}
+		</if>
+		<if test="enddate != null and enddate != ''">
+			AND  p.createDate &lt;= #{enddate}
+		</if>
+		<if test="albumId != null and albumId != ''">
+			AND p.albumId = #{albumId}
+		</if>
+		<if test="title != null and title != ''">
+			AND a.title like '%${title}%'
+		</if>
+		order by p.createDate DESC
+	</select>
+	
+	<!-- //添加
+		public void photoSave(Photo model); -->
+	<insert id="photoSave" parameterType="com.forum.pojo.Photo">
+		insert into tb_photo
+		(id,picture,createDate,albumId) 
+		values 
+		(#{id},#{picture},#{createDate},#{albumId}) 
+	</insert>
+	<!-- //删除
+	    public void deleteById(Integer id); -->
+	<delete id="deleteById" parameterType="Integer">
+	 	delete from tb_photo where id=#{id}
+	 </delete>
+</mapper>

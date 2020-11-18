@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forum.dao.ArgumentMapper">
+	<resultMap type="com.forum.pojo.Argument" id="main">
+	 	<id column="id" property="id"/>
+	 	<result column="id" property="id"/>
+	 	<result column="property" property="property"/>
+	 	<result column="title" property="title"/>
+	 	<result column="content" property="content"/>
+	 	<result column="publishTime" property="publishTime"/>
+	 	<result column="userId" property="userId"/>
+	 	<result column="name" property="name"/>
+	 	<result column="picture" property="picture"/>
+	 	<result column="offset" property="offset"/>
+	 	<result column="size" property="size"/>
+	 </resultMap>
+	 <!-- //查询
+		public List<Argument> getArguments(Argument model);-->
+	<select id="getArguments" parameterType="com.forum.pojo.Argument" resultMap="main">
+		select a.*,u.* from tb_argument a 
+		left join tb_user u 
+		on a.userId=u.id
+		where 1=1
+		<if test="id != null">
+			AND a.id=#{id}
+		</if>
+		<if test="property != null and property != ''">
+			AND a.property=#{property} 
+		</if>
+		<if test="title != null and title != ''">
+			AND a.title like '%${title}%'
+		</if>
+		<if test="content != null and content != ''">
+			AND a.content = #{content}
+		</if>
+		<if test="startdate != null and startdate != ''">
+			AND a.publishTime &gt;= #{startdate}
+		</if>
+		<if test="enddate != null and enddate != ''">
+			AND  a.publishTime &lt;= #{enddate}
+		</if>
+		<if test="userId != null and userId != ''">
+			AND a.userId = #{userId}
+		</if>
+		<if test="name != null and name != ''">
+			AND u.name like '%${name}%'
+		</if>
+		<if test="picture != null and picture != ''">
+			AND a.picture = #{picture}
+		</if>
+		order by a.publishTime DESC
+	</select>
+	
+	<!--//查询总记录
+		public int getCount();
+	 -->
+	 <!-- select count(*) as num from tb_argument --> 
+	 <select id="getCount" resultType="Integer">
+	 	select count(*) from tb_argument
+	 </select>
+	 
+	 <!--//查询总记录,个人
+		public int getCountOne(Integer id);
+	 -->
+	 <!-- select count(*) as num from tb_argument --> 
+	 <select id="getCountOne" resultType="Integer" parameterType="Integer">
+	 	select count(*) from tb_argument where userId=#{userId}
+	 </select>
+	 
+	 <!-- //分页查询
+		public List<Argument> getArgumentPage(Argument model); -->
+	<!-- select * from tb_argument limit 0,5 -->
+	<select id="getArgumentPage" resultMap="main" parameterType="com.forum.pojo.Argument">
+		select a.*,u.* from tb_argument a 
+		left join tb_user u 
+		on a.userId=u.id 
+		ORDER BY publishTime DESC
+		limit #{offset},#{size}
+	</select>
+	
+	<!-- //分页查询,个人
+		public List<Argument> getArgumentPage(Argument model); -->
+	<!-- select * from tb_argument limit 0,5 -->
+	<select id="getArgumentPageOne" resultMap="main" parameterType="com.forum.pojo.Argument">
+		select a.*,u.* from tb_argument a 
+		left join tb_user u 
+		on a.userId=u.id 
+		where userId=#{userId} 
+		ORDER BY publishTime DESC
+		limit #{offset},#{size}
+	</select>
+	
+	<!-- //添加
+		public void argumentSave(Argument model); -->
+	<insert id="argumentSave" parameterType="com.forum.pojo.Argument">
+		insert into tb_argument 
+		(id,property,content,title,userId,publishTime)
+		values
+		(#{id},#{property},#{content},#{title},#{userId},#{publishTime})
+	</insert>
+		
+	<!--//删除
+		public void deleteById(Integer id);  -->
+	<delete id="deleteById" parameterType="Integer">
+	 	delete from tb_argument where id=#{id}
+	 </delete>
+</mapper>

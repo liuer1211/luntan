@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forum.dao.PhotoCommentMapper">
+	<resultMap type="com.forum.pojo.PhotoComment" id="main">
+	 	<id column="id" property="id"/>
+	 	<result column="id" property="id"/>
+	 	<result column="content" property="content"/>
+	 	<result column="commentDate" property="commentDate"/>
+	 	<result column="photoId" property="photoId"/>
+	 	<result column="userId" property="userId"/>
+	 	<result column="name" property="name"/>
+	 	<result column="picture" property="picture"/>
+	 </resultMap>
+	 <!-- //查询,三个id查询，三张表
+		public List<PhotoComment> getPhotoComments(PhotoComment model);-->
+	<select id="getPhotoComments" parameterType="com.forum.pojo.PhotoComment" resultMap="main">
+		select * from tb_photoComment inner join tb_photo on 
+		tb_photo.id=tb_photoComment.photoId inner join tb_user on 
+		tb_photoComment.userId=tb_user.id
+		where 1=1
+		<if test="id != null">
+			AND tb_photoComment.id=#{id}
+		</if>
+		<if test="content != null and content != ''">
+			AND tb_photoComment.content=#{content} 
+		</if>
+		<!-- <if test="commentDate != null and commentDate != ''">
+			AND tb_photoComment.commentDate = #{commentDate}
+		</if> -->
+		<if test="startdate != null and startdate != ''">
+			AND tb_photoComment.commentDate  &gt;= #{startdate}
+		</if>
+		<if test="enddate != null and enddate != ''">
+			AND tb_photoComment.commentDate  &lt;= #{enddate}
+		</if>
+		<if test="photoId != null and photoId != ''">
+			AND tb_photoComment.photoId =#{photoId}
+		</if>
+		<if test="userId != null and userId != ''">
+			AND tb_photoComment.userId = #{userId}
+		</if>
+		<if test="name != null and name != ''">
+			AND tb_user.name like '%${name}%'
+		</if>
+		<if test="picture != null and picture != ''">
+			AND tb_photo.picture = #{picture}
+		</if>
+		order by tb_photoComment.commentDate ASC
+	</select>
+	
+	
+	<!-- //添加
+		public void PhotoCommentSave(PhotoComment model);-->
+	<insert id="PhotoCommentSave" parameterType="com.forum.pojo.PhotoComment">
+		insert into tb_photoComment 
+		(id,content,commentDate,photoId,userId)
+		values
+		(#{id},#{content},#{commentDate},#{photoId},#{userId})
+	</insert> 
+	
+	<!--//删除
+	public void deleteById(Integer id);  -->
+	<delete id="deleteById" parameterType="Integer">
+	 	delete from tb_photoComment where id=#{id}
+	</delete>
+</mapper>

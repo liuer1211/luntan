@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forum.dao.UserMapper">
+	<resultMap type="com.forum.pojo.User" id="main">
+	 	<id column="id" property="id"/>
+	 	<result column="id" property="id"/>
+	 	<result column="name" property="name"/>
+	 	<result column="password" property="password"/>
+	 	<result column="mobile" property="mobile"/>
+	 	<result column="email" property="email"/>
+	 	<result column="age" property="age"/>
+	 	<result column="birthday" property="birthday"/>
+	 	<result column="address" property="address"/>
+	 	<result column="gender" property="gender"/>
+	 	<result column="picture" property="picture"/>
+	 	<result column="describes" property="describes"/>
+	 	<result column="registerDate" property="registerDate"/>
+	 	<result column="loginDate" property="loginDate"/>
+	 	<result column="dateTimes" property="dateTimes"/>
+	 </resultMap>
+	 <!-- //查询
+		   public List<User> getUsers(User model); -->
+	 <!-- parameterType 写成 parameterMap 报异常，谁都查询不到 -->
+	 <select id="getUsers" parameterType="com.forum.pojo.User" resultMap="main">
+	 	select * from tb_user
+	 	where 1=1 
+	 	<if test="id != null">
+	 		and id=#{id}
+	 	</if>
+	 	<if test="name != null and name != '' ">
+	 		and name like '%${name}%'
+	 	</if>
+	 	<if test="password != null and password != ''">
+			AND password = #{password}
+		</if>
+		<if test="mobile != null and mobile != ''">
+			AND mobile = #{mobile}
+		</if>
+	 	<if test="email != null and email != ''">
+			AND email = #{email}
+		</if>
+		<if test="age != null and age != ''">
+			AND age = #{age}
+		</if>
+		<if test="birthday != null and birthday != ''">
+			AND birthday = #{birthday}
+		</if>
+		<if test="address != null and address != ''">
+			AND address = #{address}
+		</if>
+		<if test="gender != null and gender != ''">
+			AND gender = #{gender}
+		</if>
+		<if test="picture != null and picture != ''">
+			AND picture = #{picture}
+		</if>
+		<if test="describes != null and describes != ''">
+			AND describes = #{describes}
+		</if>
+		<!-- <if test="registerDate != null and registerDate != ''">
+			AND registerDate = #{registerDate}
+		</if> -->
+		<if test="loginDate != null and loginDate != ''">
+			AND loginDate = #{loginDate}
+		</if>
+		<if test="dateTimes != null and dateTimes != ''">
+			AND dateTimes = #{dateTimes}
+		</if>
+		<if test="startdate != null and startdate != ''">
+			AND registerDate &gt;= #{startdate}
+		</if>
+		<if test="enddate != null and enddate != ''">
+			AND registerDate &lt;= #{enddate}
+		</if>
+	 	order by registerDate DESC
+	 </select>
+	 
+	 <!-- //精确 查询  验证用户唯一性
+			public List<User> getUserInfo(User model); -->
+	 <select id="getUserInfo" parameterType="com.forum.pojo.User" resultMap="main">
+	 	select * from tb_user
+	 	where name =#{name}
+	 </select>
+	 
+	 <!-- //登录，精确查找
+			public List<User> getUserOne(User model); -->
+	 <select id="getUserOne" parameterType="com.forum.pojo.User" resultMap="main">
+	 	select * from tb_user
+	 	where name =#{name} AND password=#{password}
+	 </select>
+	 
+	 <!-- //查询用户，用来做用户最近动态，登录时间
+		public List<User> getUserLoginDate(User model); -->
+	<!-- SELECT * FROM `tb_user` where name like "%1%" ORDER BY loginDate desc limit 0,5 ; -->
+	<select id="getUserLoginDate" parameterType="com.forum.pojo.User" resultMap="main">
+	 	select * from tb_user 
+	 	order by loginDate DESC
+	 	limit 0,8
+	 </select>
+	 
+	 <!-- //增加
+			public void save(User model); -->
+	 <insert id="save" parameterType="com.forum.pojo.User">
+	 	insert into tb_user(
+	 		id,name,password,mobile,email,age,birthday,address,gender,picture,describes,registerDate,loginDate,dateTimes
+	 	) 
+	 	values(
+	 		#{id},#{name},#{password},#{mobile},#{email},#{age},#{birthday},#{address},#{gender},#{picture},#{describes},#{registerDate},#{loginDate},#{dateTimes}
+	 	)
+	 </insert>
+	 
+	 <!--  //修改
+			public void update(User model); -->
+	 <update id="update" parameterType="com.forum.pojo.User">
+	 	update tb_user
+	 	<set>
+	 		<if test="name != null and name != ''" >
+				name=#{name},
+			</if>
+			<if test="password !=null and password != ''">
+				password=#{password},
+			</if>
+			<if test="mobile !=null and mobile != ''">
+				mobile=#{mobile},
+			</if>
+			<if test="email !=null and email != ''">
+				email=#{email},
+			</if>
+			<if test="age !=null and age != ''">
+				age=#{age},
+			</if>
+			<if test="birthday !=null and birthday != ''">
+				birthday=#{birthday},
+			</if>
+			<if test="address !=null and address != ''">
+				address=#{address},
+			</if>
+			<if test="gender !=null and gender != ''">
+				gender=#{gender},
+			</if>
+			<if test="picture !=null and picture != ''">
+				picture=#{picture},
+			</if>
+			<if test="describes !=null and describes != ''">
+				describes=#{describes},
+			</if>
+			<if test="registerDate !=null and registerDate != ''">
+				registerDate=#{registerDate},
+			</if>
+			<if test="loginDate !=null and loginDate != ''">
+				loginDate=#{loginDate},
+			</if>
+			<if test="dateTimes !=null and dateTimes != ''">
+				dateTimes=#{dateTimes},
+			</if>
+	 	</set>
+	 	where id=#{id}
+	 </update>	
+	 	
+	 <!-- //删除
+			public void deleteById(Integer id); -->
+	 <delete id="deleteById" parameterType="Integer">
+	 	delete from tb_user where id=#{id}
+	 </delete>
+</mapper>

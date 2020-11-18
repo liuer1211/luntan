@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forum.dao.CommentMapper">
+	<resultMap type="com.forum.pojo.Comment" id="main">
+	 	<id column="id" property="id"/>
+	 	<result column="id" property="id"/>
+	 	<result column="content" property="content"/>
+	 	<result column="dateTimes" property="dateTimes"/>
+	 	<result column="argumentId" property="argumentId"/>
+	 	<result column="userId" property="userId"/>
+	 	<result column="name" property="name"/>
+	 	<result column="picture" property="picture"/>
+	 	<result column="title" property="title"/>
+	 </resultMap>
+	 <!-- //三个id查询
+		public List<Comment> getComments(Comment model);-->
+	 <!--select * from tb_comment inner join tb_user on 
+		tb_user.id=tb_comment.userId inner join tb_argument on 
+		tb_comment.argumentId=tb_argument.id
+		where tb_comment.id=1;-->
+	<select id="getComments" parameterType="com.forum.pojo.Comment" resultMap="main">
+		select * from tb_comment inner join tb_user on 
+		tb_user.id=tb_comment.userId inner join tb_argument on 
+		tb_comment.argumentId=tb_argument.id
+		where 1=1
+		<if test="id != null">
+			AND tb_comment.id=#{id}
+		</if>
+		<if test="content != null and content != ''">
+			AND tb_comment.content=#{content} 
+		</if>
+		<if test="argumentId != null and argumentId != ''">
+			AND tb_comment.argumentId =#{argumentId}
+		</if>
+		<if test="userId != null and userId != ''">
+			AND tb_comment.userId = #{userId}
+		</if>
+		<!-- <if test="dateTimes != null and dateTimes != ''">
+			AND tb_comment.dateTimes = #{dateTimes}
+		</if> -->
+		<if test="startdate != null and startdate != ''">
+			AND tb_comment.dateTimes &gt;= #{startdate}
+		</if>
+		<if test="enddate != null and enddate != ''">
+			AND  tb_comment.dateTimes &lt;= #{enddate}
+		</if>
+		<if test="name != null and name != ''">
+			AND tb_user.name like '%${name}%'
+		</if>
+		<if test="picture != null and picture != ''">
+			AND tb_user.picture = #{picture}
+		</if>
+		<if test="title != null and title != ''">
+			AND tb_argument.title like '%${title}%'
+		</if>
+		order by tb_comment.dateTimes ASC
+	</select>
+	
+	<!--//查询，两个id查询
+		public List<Comment> getOneComments(Comment model);  -->
+	<select id="getOneComments" parameterType="com.forum.pojo.Comment" resultMap="main">
+		select * from tb_comment 
+		where 1=1
+		<if test="id != null">
+			AND id=#{id}
+		</if>
+		<if test="content != null and content != ''">
+			AND content=#{content} 
+		</if>
+		<if test="argumentId != null and argumentId != ''">
+			AND argumentId =#{argumentId}
+		</if>
+		<if test="userId != null and userId != ''">
+			AND userId = #{userId}
+		</if>
+		<if test="dateTimes != null and dateTimes != ''">
+			AND dateTimes = #{dateTimes}
+		</if>
+		order by tb_comment.dateTimes DESC
+	</select>
+	
+	<!-- //查询,中间桥梁
+		public List<Comment> getArguComments(Comment model); -->
+	<select id="getArguComments" parameterType="com.forum.pojo.Comment" resultMap="main">
+		select * from tb_comment  inner join tb_argument on 
+		tb_argument.id=tb_comment.argumentId inner join tb_user on 
+		tb_argument.UserId=tb_user.id 
+		where 1=1
+		<if test="id != null">
+			AND tb_comment.id=#{id}
+		</if>
+		<if test="content != null and content != ''">
+			AND tb_comment.content=#{content} 
+		</if>
+		<if test="argumentId != null and argumentId != ''">
+			AND tb_comment.argumentId =#{argumentId}
+		</if>
+		<if test="userId != null and userId != ''">
+			AND tb_comment.userId = #{userId}
+		</if>
+		<if test="dateTimes != null and dateTimes != ''">
+			AND tb_comment.dateTimes = #{dateTimes}
+		</if>
+		<if test="name != null and name != ''">
+			AND tb_user.name like '%${name}%'
+		</if>
+		<if test="picture != null and picture != ''">
+			AND tb_user.picture = #{picture}
+		</if>
+		<if test="title != null and title != ''">
+			AND tb_argument.title like '%${title}%'
+		</if>
+		order by tb_comment.dateTimes DESC
+	</select>
+	
+	<!-- //添加
+		public void commentSave(Comment model); -->
+	<insert id="commentSave" parameterType="com.forum.pojo.Comment">
+		insert into tb_comment 
+		(id,content,dateTimes,argumentId,userId)
+		values
+		(#{id},#{content},#{dateTimes},#{argumentId},#{userId})
+	</insert>
+	
+	<!--//删除
+		public void deleteById(Integer id);  -->
+	<delete id="deleteById" parameterType="Integer">
+	 	delete from tb_comment where id=#{id}
+	</delete>
+</mapper>

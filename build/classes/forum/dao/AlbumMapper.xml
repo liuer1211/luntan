@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forum.dao.AlbumMapper">
+	<resultMap type="com.forum.pojo.Album" id="main">
+	 	<id column="id" property="id"/>
+	 	<result column="id" property="id"/>
+	 	<result column="title" property="title"/>
+	 	<result column="picture" property="picture"/>
+	 	<result column="createDate" property="createDate"/>
+	 	<result column="userId" property="userId"/>
+	 	<result column="name" property="name"/>
+	 </resultMap>
+	 <!-- //查询
+		public List<Album> getAlbums(Album model);-->
+	<select id="getAlbums" parameterType="com.forum.pojo.Album" resultMap="main">
+		select a.*,u.* from tb_album a 
+		left join tb_user u 
+		on a.userId=u.id
+		where 1=1
+		<if test="id != null">
+			AND a.id=#{id}
+		</if>
+		<if test="title != null and title != ''">
+			AND a.title like '%${title}%'
+		</if>
+		<if test="picture != null and picture != ''">
+			AND a.picture = #{picture}
+		</if>
+		<!-- <if test="createDate != null and createDate != ''">
+			AND a.createDate = #{createDate}
+		</if> -->
+		<if test="startdate != null and startdate != ''">
+			AND a.createDate &gt;= #{startdate}
+		</if>
+		<if test="enddate != null and enddate != ''">
+			AND  a.createDate &lt;= #{enddate}
+		</if>
+		<if test="userId != null and userId != ''">
+			AND a.userId = #{userId}
+		</if>
+		<if test="name != null and name != ''">
+			AND u.name like '%${name}%'
+		</if>
+		order by a.createDate DESC
+	</select>
+	
+	<!--//删除
+		public void albumDelete(Integer id);  -->
+	<delete id="albumDelete" parameterType="Integer">
+	 	delete from tb_album where id=#{id}
+	</delete>
+	
+	<!--//添加
+		public void albumSave(Album model);  -->
+	<insert id="albumSave" parameterType="com.forum.pojo.Album">
+		insert into tb_album
+		(id,title,picture,createDate,userId) 
+		values 
+		(#{id},#{title},#{picture},#{createDate},#{userId}) 
+	</insert>
+	
+	<!--//删除
+	public void deleteById(Integer id);  -->
+	<delete id="deleteById" parameterType="Integer">
+	 	delete from tb_album where id=#{id}
+	</delete>
+	
+	<!-- //修改
+	public void update(Album model); -->
+	<update id="update" parameterType="com.forum.pojo.Album">
+	 	update tb_album
+	 	<set>
+			<if test="picture !=null and picture != ''">
+				picture=#{picture},
+			</if>
+	 	</set>
+	 	where id=#{id}
+	 </update>	
+</mapper>

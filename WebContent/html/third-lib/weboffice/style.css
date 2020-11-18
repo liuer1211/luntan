@@ -1,0 +1,114 @@
+.maintitle {
+	font-size: 13px; color: #000000
+}
+.maintxt {
+	font-size: 12px
+}
+.maintxt a:visited {
+	font-size: 12px; color: #000000; text-decoration: none
+}
+.maintxt a:hover {
+	font-size: 12px; color: #ff0000; text-decoration: none
+}
+.maintxt a:link {
+	color: #000000; text-decoration: none
+}
+.maintxt a:active {
+	color: #000000; text-decoration: none
+}
+a:link {
+	text-decoration: none
+}
+a:visited {
+	text-decoration: none
+}
+a:hover {
+	text-decoration: none
+}
+a:active {
+	text-decoration: none
+}
+.btn {
+	border-right: #0066cc 1px solid; border-top: #3366ff 1px solid; font-size: 12px; padding-bottom: 3px; margin: 1px 0px 2px 3px; border-left: #0066cc 1px solid; width: 128px; color: #ffffff; padding-top: 3px; border-bottom: #3366ff 1px solid; FONT-STYLE: normal; height: 24px; background-color: #638eef
+}
+.style2 {
+	font-size: 12px; color: #ff0000; font-family: "新細明體", Arial, sans-serif
+}
+.style3 {
+	font-size: 12px; font-family: "新細明體", Arial, sans-serif
+}
+.redLink {
+	color: #ff0000
+}
+.topSide {
+	border-top: #3366cc 1px solid; border-left-width: 1px; border-left-color: #3366cc; border-bottom-width: 1px; border-bottom-color: #3366cc; border-right-width: 1px; border-right-color: #3366cc
+}
+.leftBorder {
+	border-top-width: 1px; border-bottom-width: 1px; border-left: #0066ff 1px dashed; border-right-width: 1px
+}
+.downSide {
+	border-top-width: 1px; border-left-width: 1px; border-bottom: #0066ff 1px dashed; border-right-width: 1px
+}
+.menuItem {
+	border-top-width: 1px; padding-right: 0px; padding-left: 12px; border-left-width: 1px; border-left-color: #0000cc; border-bottom-width: 1px; border-bottom-color: #0000cc; padding-bottom: 0px; margin: 1px 0px 0px; cursor: pointer; color: #000066; border-top-color: #0000cc; padding-top: 1px; height: 18px; background-color: #e5ecf9; border-right-width: 1px; border-right-color: #0000cc
+}
+.TableBlock {
+	border-right: #a55257 1px solid; border-top: #a55257 1px solid; font-size: 9pt; border-left: #a55257 1px solid; line-height: 20px; border-bottom: #a55257 1px solid; border-collapse: collapse
+}
+.TableBlock td {
+	padding-right: 3px; padding-left: 3px; padding-bottom: 3px; color: #000000; padding-top: 3px
+}
+.TableBlock .TableHeader td {
+	border-right: #a55257 1px solid; padding-right: 0px; border-top: #a55257 1px solid; padding-left: 0px; font-weight: bold; background: #e5ecf9; padding-bottom: 0px; border-left: #a55257 1px solid; color: #000; line-height: 23px; padding-top: 0px; border-bottom: #a55257 1px solid
+}
+.TableBlock td.TableHeader {
+	border-right: #a55257 1px solid; padding-right: 0px; border-top: #a55257 1px solid; padding-left: 0px; font-weight: bold; background: #e5ecf9; padding-bottom: 0px; border-left: #a55257 1px solid; color: #000; line-height: 23px; padding-top: 0px; border-bottom: #a55257 1px solid
+}
+.TableBlock .TableLine1 td {
+	border-right: #a55257 1px solid; border-top: #a55257 1px solid; background: #f8f8f8
+}
+.TableBlock td.TableLine1 {
+	border-right: #a55257 1px solid; border-top: #a55257 1px solid; background: #f8f8f8
+}
+.TableBlock .TableLine2 td {
+	border-right: #a55257 1px solid; border-top: #a55257 1px solid; background: #ffffff
+}
+.TableBlock td.TableLine2 {
+	border-right: #a55257 1px solid; border-top: #a55257 1px solid; background: #ffffff
+}
+.TableBlock .TableData td {
+	border-right: #a55257 1px solid; border-top: #a55257 1px solid; background: #ffffff
+}
+.TableBlock td.TableData {
+	border-right: #a55257 1px solid; border-top: #a55257 1px solid; background: #ffffff
+}
+.TableBlock td.leftTableData {
+	border-right: #a55257 1px solid; border-top: #a55257 1px solid; background: #6699ff
+}
+.TableBlock .TableContent td {
+	border-right: #a55257 1px solid; border-top: #a55257 1px solid; background: #f0f0f0
+}
+.TableBlock td.TableContent {
+	border-right: #a55257 1px solid; border-top: #a55257 1px solid; background: #f0f0f0
+}
+.TableBlock .TableFooter td {
+	border-right: #cfddea 1px solid; border-top: #cfddea 1px solid; background: #fff; border-left: #cfddea 1px solid; border-bottom: #cfddea 1px solid
+}
+.TableBlock .TableControl td {
+	border-right: #cfddea 1px solid; border-top: #cfddea 1px solid; background: #fff; border-left: #cfddea 1px solid; border-bottom: #cfddea 1px solid
+}
+.TableBlock td.TableFooter {
+	border-right: #cfddea 1px solid; border-top: #cfddea 1px solid; background: #fff; border-left: #cfddea 1px solid; border-bottom: #cfddea 1px solid
+}
+.TableBlock td.TableControl {
+	border-right: #cfddea 1px solid; border-top: #cfddea 1px solid; background: #fff; border-left: #cfddea 1px solid; border-bottom: #cfddea 1px solid
+}
+.TableBlock .TableRed td {
+	background: #ffebeb
+}
+.TableBlock td.TableRed {
+	background: #ffebeb
+}
+body {
+	font-size: 12px; font-family: arial, 冼极, serif
+}

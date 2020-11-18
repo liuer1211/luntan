@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forum.dao.InformationMapper">
+	<resultMap type="com.forum.pojo.Information" id="main">
+	 	<id column="id" property="id"/>
+	 	<result column="id" property="id"/>
+	 	<result column="title" property="title"/>
+	 	<result column="content" property="content"/>
+	 	<result column="picture" property="picture"/>
+	 	<result column="link" property="link"/>
+	 	<result column="dateTimes" property="dateTimes"/>
+	 	<result column="offset" property="offset"/>
+	 	<result column="size" property="size"/>
+	 </resultMap>
+	 <!-- //查询
+		public List<Information> getInformations(Information model); -->
+	<select id="getInformations" parameterType="com.forum.pojo.Information" resultMap="main">
+		select * from tb_Information
+		where 1=1
+		<if test="id != null">
+		and id=#{id}
+		</if>
+		<if test="title != null and title != ''">
+			AND title LIKE '%${title}%'
+		</if>
+		<if test="content != null and content != ''">
+			AND content = #{content}
+		</if>
+		<if test="picture != null and picture != ''">
+			AND picture = #{picture}
+		</if>
+		<if test="link != null and link != ''">
+			AND link = #{link}
+		</if>
+		<!-- <if test="dateTimes != null and dateTimes != ''">
+			AND dateTimes = #{dateTimes}
+		</if> -->
+		<if test="startdate != null and startdate != ''">
+			AND dateTimes  &gt;= #{startdate}
+		</if>
+		<if test="enddate != null and enddate != ''">
+			AND dateTimes  &lt;= #{enddate}
+		</if>
+		order by dateTimes DESC
+	</select>
+	
+	<!--//查询总记录
+		public int getCount();
+	 -->
+	 <!-- select count(*) as num from tb_information --> 
+	 <select id="getCount" resultType="Integer">
+	 	select count(*) from tb_information
+	 </select>
+	 
+	 <!-- //分页查询
+		public List<Information> getInformationPage(Information model); -->
+	<!-- select * from tb_information limit 0,5 -->
+	<select id="getInformationPage" resultMap="main" parameterType="com.forum.pojo.Information">
+		select * from tb_information 
+		ORDER BY dateTimes DESC
+		limit #{offset},#{size}
+	</select>
+	<!--//删除
+	public void deleteById(Integer id);  -->
+	<delete id="deleteById" parameterType="Integer">
+	 	delete from tb_information where id=#{id}
+	</delete>
+	
+	<!-- add增加
+		 public void save(Information info); -->
+	<insert id="save" parameterType="com.forum.pojo.Information">
+		insert into tb_information(
+			id,title,link,content,picture,dateTimes
+		)
+		values(
+			#{id},#{title},#{link},#{content},#{picture},#{dateTimes}
+		)
+	</insert>
+	
+	<!-- update修改
+	     public void update(Information info); -->
+	<update id="update" parameterType="com.forum.pojo.Information">
+		update tb_information
+		<set>
+			<if test="title != null and title != ''" >
+				title=#{title},
+			</if>
+			<if test="link != null and link != ''" >
+				link=#{link},
+			</if>
+			<if test="content != null and content != ''" >
+				content=#{content},
+			</if>
+			<if test="dateTimes != null and dateTimes != ''" >
+				dateTimes=#{dateTimes},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+</mapper>

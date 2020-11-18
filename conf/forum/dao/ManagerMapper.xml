@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forum.dao.ManagerMapper">
+
+	<!-- 指定主键烈的封装规则
+		id：定义主键底层有优化
+		column：指定那一列
+		property：指定对应的javaBean
+		使用resultType的时候，驼峰命名要开启
+	 -->
+	<resultMap id="main" type="com.forum.pojo.Manager">
+		<id column="id" property="id" />
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="password" property="password" />
+		<result column="picture" property="picture" />
+		<result column="dateTimes" property="dateTimes" />
+	</resultMap>
+	
+	<!-- public Manager getManagerById(Integer id); -->
+	<select id="getManagerById" resultType="com.forum.pojo.Manager">
+		select * from tb_manager where id=#{id}
+	</select>
+	
+	<!-- 
+		parameterType:参数类型
+		-可以不传，mybatis会根据TypeHandler自动判断
+		resultType：返回值类型
+		-别名或者全类名，如果返回的是集合，定义集合中元素类型。
+		-不能和resultMap同时使用
+	 -->
+	 <!--
+	 	#{}:是以预编译形式，将参数设置到sql语句中，PrepareStatement，防止sql注入
+	 	${}:取出的值直接拼接到sql语句中，会有安全问题
+	   -->
+	<!-- select查询 
+	 	 public List<Manager> getManagers(Manager model); -->
+	<!-- desc 降序，最近的放到最前 --> 	 
+	<select id="getManagers" parameterType="com.forum.pojo.Manager" resultMap="main">
+		SELECT * FROM tb_manager 
+		WHERE
+	    1=1
+		<if test="id != null">
+			AND id = #{id}
+		</if>
+		<if test="name != null and name != ''">
+			AND name LIKE '%${name}%'
+		</if>
+		<if test="password != null and password != ''">
+			AND password = #{password}
+		</if>
+		<if test="picture != null and picture != ''">
+			AND picture = #{picture}
+		</if>
+		<if test="dateTimes != null and dateTimes != ''">
+			AND dateTimes = #{dateTimes}
+		</if>
+		ORDER BY dateTimes DESC
+	</select>
+	
+	<!-- add增加
+		 public void save(Manager info); -->
+	<insert id="save" parameterType="com.forum.pojo.Manager">
+		insert into tb_manager(
+			id,name,password,picture,dateTimes
+		)
+		values(
+			#{id},#{name},#{password},#{picture},#{dateTimes}
+		)
+	</insert>
+	
+	<!-- update修改
+	     public void update(Manager info); -->
+	<update id="update" parameterType="com.forum.pojo.Manager">
+		update tb_manager
+		<set>
+			<if test="name != null and name != ''" >
+				name=#{name},
+			</if>
+			<if test="password != null and password != ''" >
+				password=#{password},
+			</if>
+			<if test="picture != null and picture != ''" >
+				picture=#{picture},
+			</if>
+			<if test="dateTimes != null and dateTimes != ''" >
+				dateTimes=#{dateTimes},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<!-- 删除
+		 public void deleteById(String id); -->
+	<!--删除 -->
+	<delete id="deleteById" parameterType="Integer">
+		delete from tb_manager WHERE id=#{id}
+	</delete>
+</mapper>

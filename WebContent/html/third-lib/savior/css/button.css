@@ -1,0 +1,113 @@
+@CHARSET "UTF-8";
+
+/* 添加按钮*/
+.button-add-24 {
+	background-image: url(../images/t01.png) !important;
+	background-repeat: no-repeat;
+}
+
+.button-edit-24 {
+	background-image: url(../images/t02.png) !important;
+	background-repeat: no-repeat;
+}
+
+.button-delete-24 {
+	background-image: url(../images/t03.png) !important;
+	background-repeat: no-repeat;
+}
+
+.button-upload-24 {
+	background-image: url(../images/upload.png) !important;
+	background-repeat: no-repeat;
+}
+
+.button-check-24 {
+	background-image: url(../images/check.png) !important;
+	background-repeat: no-repeat;
+}
+
+.button-check{
+	background-image: url(../images/check1.png) !important;
+	background-repeat: no-repeat;
+}
+
+.button-top-24 {
+	background-image: url(../images/top.png) !important;
+	background-repeat: no-repeat;
+}
+
+.button-canceltop-24 {
+	background-image: url(../images/canceltop.png) !important;
+	background-repeat: no-repeat;
+}
+
+.button-view-24 {
+	background-image: url(../images/view.png) !important;
+	background-repeat: no-repeat;
+}
+
+.button-his-24 {
+	background-image: url(../images/history.png) !important;
+	background-repeat: no-repeat;
+}
+.button-process_view{
+	background-image: url(../images/peizhi.png) !important;
+	background-repeat: no-repeat;
+}
+.button-enable-24 {
+	background-image: url(../images/enable.png) !important;
+	background-repeat: no-repeat;
+}
+
+.button-disable-24 {
+	background-image: url(../images/disable.png) !important;
+	background-repeat: no-repeat;
+}
+
+.button-mark-24 {
+	background-image: url(../images/mark.png) !important;
+	background-repeat: no-repeat;
+}
+
+.button-mark {
+	background-image: url(../images/mark1.png) !important;
+	background-repeat: no-repeat;
+}
+
+.button-resetpwd-24 {
+	background-image: url(../images/resetpassword.png) !important;
+	background-repeat: no-repeat;
+}
+
+.button-users-24 {
+	background-image: url(../images/users.png) !important;
+	background-repeat: no-repeat;
+}
+.button-users{
+	background-image: url(../images/users1.png) !important;
+	background-repeat: no-repeat;
+}
+
+.button-menus-24 {
+	background-image: url(../images/menus.png) !important;
+	background-repeat: no-repeat;
+}
+
+.button-function-24 {
+	background-image: url(../images/function.png) !important;
+	background-repeat: no-repeat;
+}
+
+.button-menus {
+	background-image: url(../images/menus1.png) !important;
+	background-repeat: no-repeat;
+}
+
+.button-function {
+	background-image: url(../images/function1.png) !important;
+	background-repeat: no-repeat;
+}
+.button-roles-24 {
+	background-image: url(../images/roles.png) !important;
+	background-repeat: no-repeat;
+}

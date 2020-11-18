@@ -1,0 +1,73 @@
+$(function(){
+    	//复选框样式
+       /*  $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        }); */
+		//rules     配置每一种规则
+		//messages  配置规则的提示
+        $("#J_basic").validate({
+        	//默认娇艳规则，英文提示会变声汉语提示，因为加了一个jar包
+            rules:{
+                name:{
+                	//不能为空
+                    required:true
+                }
+            },
+            /* onkeyup：Boolean  Default: true 
+           	 在keyup时验证. */
+            onkeyup:false,
+           /*focusCleanup：Boolean  Default: false   
+         	  如果是true那么当未通过验证的元素获得焦点时，移除错误提示。避免和 focusInvalid 一起用 */
+            focusCleanup:true,
+            //要验证的元素通过验证后的动作,如果跟一个字符串,会当做一个css类,也可跟一个函数
+            success:"valid",//css样式
+            //通过验证后运行的函数，里面要加上表单提交的函数，否则表单不会提交 
+            submitHandler:function(form){
+                var data = getFormData();
+                submit(data);
+            }
+        });
+    });
+
+    function getFormData(){
+        var data = {};
+        data ['basic'] = getFormJson("J_basic");
+        return data;
+    }
+    //提交转转后台
+    function submit(data){
+        $.ajax({
+            url: '${prc}/manager/add',
+            type: 'post',
+            dataType: 'json',
+            data:data.basic/* {infor: JSON.stringify(data)} */,
+           //发送请求前可修改 XMLHttpRequest 对象的函数，如添加自定义 HTTP 头。XMLHttpRequest 对象是唯一的参数。这是一个 Ajax 事件。如果返回false可以取消本次ajax请求。 
+            beforeSend: function(XMLHttpRequest) {
+                //发送前显示遮罩层，无法再次点击，只能等请求结束后才能进行页面操作
+               // showMask();
+            },
+            success: function(datas){
+            	/* 
+            		datas参数（无实际意义）
+            		datas.success获得后台传递的参数值
+            		后台数据：success：true
+            	*/
+                if(datas.success == true){
+                    parent.layer.msg('操作成功！');
+                    parent.table.ajax.reload();
+                    var index = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(index);
+
+                }else{
+                    layer.alert('添加数据失败', {icon: 2});
+                }
+            },
+           // 请求完成后回调函数 (请求成功或失败之后均调用)。参数： XMLHttpRequest 对象和一个描述成功请求类型的字符串。 Ajax 事件。 
+            complete: function (jsondata, stat){
+                //hideMask();
+            }
+        });
+        
+    }

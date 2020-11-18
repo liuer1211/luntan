@@ -1,0 +1,56 @@
+@charset "utf-8";
+#righteject {
+	position:fixed;
+	right:0px;
+	height:80%;
+	margin-top:124px;
+	z-index:900000000;
+	_position:absolute;/*兼容IE6*/
+/*_top: expression(offsetParent.scrollTop+document.documentElement.clientHeight-this.offsetHeight);始终位于底部*/
+_top: expression(documentElement.scrollTop+200);
+}/*兼容IE6*/
+*html {
+	background-image:url(about:blank);
+	background-attachment:fixed;
+}
+#righteject .bar {
+	text-align: center;
+	font-size:15px;
+	font-weight:bolder;
+	color:white;
+	width:25px; 
+	height:85px; 
+	position:absolute; 
+	right:0px; 
+	top:-1px;  
+	display:block;
+	/* background-color: #2D7FC2 */
+	}
+.rightejecttit {
+	width:30px;
+	height:200px;
+	text-align:center;
+	display:block;
+	float:left;
+	cursor:pointer;
+	background-color:#FE8463;
+	color:#FFF;
+	position: absolute;
+    right: 0px;
+}
+.rightejectcon {
+	width:0px;
+	height:100%;
+	overflow:hidden;
+	float:left;
+	background-color:#CCC;
+}
+.rightejecttit span {
+	position:relative;
+	top:50%;
+	display:block;
+	z-index:910000000;
+}
+.rightejectthis {
+	background-color:#8BDC4E;
+}
