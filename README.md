@@ -1,5 +1,6 @@
 # 克隆项目
 	git clone git@github.com:liuer1211/luntan.git
+	项目没有使用Maven,所有jar包都上传了，下载的时候需要点时间
 # 技术栈
 	spring
 	springMvc
